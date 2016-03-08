@@ -13,16 +13,55 @@ function Joinpage(actionfrm) {
 	}
 }
 
+//----------------------------profile------------------------------------------
+function profile(){
+	var mainfrm = document.mainfrm;
+	mainfrm.action = "/profile";
+	mainfrm.submit();
+}
+
+
+function profileconfim(){
+	var profilefrm = document.profilefrm;
+	profilefrm.action = "/profileconfim";
+	profilefrm.submit();
+	
+}
+
+
+
+
+
+//----------------------------profile------------------------------------------
+
+//----------------------------로그인,회원가입--------------------------------------------
+function memberJoin(){
+	var mainfrm = document.mainfrm;
+	mainfrm.action = "/memberJoin";
+	mainfrm.submit();
+}
+
+
+
+
+//----------------------------Login--------------------------------------------
+
 function loginvalidate() {
-	if (!document.actionfrm.id.value) {
+	if (!document.memberjoin.id.value) {
 		alert("id를 입력하세요.");
-		document.actionfrm.id.focus();
+		document.memberjoin.id.focus();
 		return false;
 	}
 
-	if (!document.actionfrm.pw.value) {
+	if (!document.memberjoin.pw.value) {
 		alert("pw를 입력하세요.");
-		document.actionfrm.pw.focus();
+		document.memberjoin.pw.focus();
+		return false;
+	}
+	
+	if (!document.memberjoin.nick_name.value) {
+		alert("pw를 입력하세요.");
+		document.memberjoin.nick_name.focus();
 		return false;
 	}
 	return true;

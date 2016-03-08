@@ -4,21 +4,15 @@
  		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="dao">
-<!-- 	<select id="test" resultType="int"> -->
-<!-- 		SELECT  -->
-<!-- 				1000  -->
-<!-- 		FROM  -->
-<!-- 				DUAL -->
-<!-- 	</select> -->
-	
-	<!-- ID와 PW확인 -->
-	<select id="Login" parameterType="UserVo21" resultType="int">
+<mapper namespace="Dao">
+
+
+<select id="Login" parameterType="Member" resultType="int">
 	<![CDATA[
 		SELECT 
 				COUNT(1) 
 		FROM 
-				TEST_USER 
+				MEMBER 
 		WHERE 
 				ID = #{id}
 				AND 
@@ -26,70 +20,35 @@
 				]]>
 	</select>
 	
-	<!--  USER DB 생성 -->
-	<insert  id="create_db_user" parameterType="String">
-		CREATE TABLE IF NOT EXISTS
-				TEST_USER
-					(
-						ID VARCHAR(8) NOT NULL,
-						PW VARCHAR(8) NOT NULL,
-						PRIMARY KEY(ID)
-					)
-	</insert>
-	
-	
-	<!-- BOARD DB생성 -->
-	<insert  id="create_db_board" >
-		CREATE TABLE IF NOT EXISTS
-				TEST_BOARD
-				(
-   					SEQ INT AUTO_INCREMENT,
-    				TITLE VARCHAR(20) NOT NULL,
-    				REG_ID VARCHAR(20) NOT NULL,
-    				REG_DT DATETIME,
-    				CONTENT VARCHAR(50) NOT NULL,
-    				PRIMARY KEY(SEQ)
-    			)
-	</insert>
-	
-	<!-- LIST DB SELECT -->
-	<select id="UserBoard" resultType="HashMap">
-<!-- 	<select id="UserBoard" resultType="ListVo21"> -->
-		SELECT 
-			    SEQ
-			   ,TITLE
-			   ,REG_ID
-			   ,REG_DT
-			   ,CONTENT
-		FROM 
-				TEST_BOARD 
-		ORDER BY  
-				SEQ ASC
-	</select>
-	
-	<!-- ID 확인 -->
-	<select id="Check_id" parameterType="UserVo21" resultType="int">
-		SELECT 
-			    COUNT(ID) 
-		FROM 
-				TEST_USER
-		WHERE 
-				ID = #{ID}
-	</select>
-	
-	<!-- ID,PW INSERT -->
-	<insert id="Join" parameterType="UserVo21">
-		INSERT 	INTO 
-				TEST_USER 
-						(	ID
-						 	,PW		) 
+	<insert id="memberjoin" parameterType="Member" >
+		<![CDATA[
+		INSERT INTO
+				MEMBER
+					(	ID
+						,PW
+						,NICK_NAME
+						,USER_LEVEL
+						,USER_EXP
+						,ACCESS_COUNT
+						,MEMBER_POINT
+						,ISRT_TIME
+						,DROP_OUT_TIME
+						,LAST_UPDT_TIME
+						,EMAIL
+						,STS		)
 		VALUES
 					(	#{id}
-						,#{pw}		)
+						,#{pw}
+						,#{nick_name}
+						,#{user_level}
+						,#{user_exp}
+						,#{access_count}
+						,#{member_point}
+						,NOW()
+						,NOW()
+						,NOW()
+						,#{email}
+						,#{sts}		)
+	]]>
 	</insert>
-	
-	
-	<!-- 아래는 오라클의 경우임! -->
-	<!-- 시간 관련   SELECT TO_CHAR(SYSTIMESTAMP,'yyyy-mm-dd hh24:mi')now  FROM DUAL -->
-	<!-- AUTO_INCREMENT 방법   SELECT TO_NUMBERu('0' || MAX(SEQ))+1 FROM TB_BOARD -->
 </mapper>
